@@ -31,13 +31,15 @@ var init = () => {
 
   if (window.Worker) {
     let worker = new Worker('./src/worker.js');
+
     compute.addEventListener('click', e => {
       solution.textContent = 'computing..';
       let arg = document.querySelector('input').value;
       let work = {
         operation: 'start',
         cb: fib.toString(),
-        cbName: 'fib',
+        cbName: fib.name,
+        parameters: getArgs(fib),
         arg: parseInt(arg, 10)
       }
       worker.postMessage(JSON.stringify(work));
